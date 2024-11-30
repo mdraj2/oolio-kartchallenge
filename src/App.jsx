@@ -1,3 +1,4 @@
+import EmptyCartIcon from "./components/EmptyCartIcon";
 import ShoppingCartIcon from "./components/ShoppingCartIcon";
 
 function App() {
@@ -148,8 +149,9 @@ function App() {
     },
   ];
 
+  const cartCount = 0;
   return (
-    <div className="mx-auto grid grid-cols-[1fr_minmax(270px,850px)_400px_1fr] gap-x-5 bg-[#FCF8F5] py-20">
+    <div className="mx-auto grid grid-cols-[1fr_minmax(270px,850px)_400px_1fr] gap-x-8 bg-[#FCF8F5] py-20">
       <div className="col-start-2 col-end-3">
         <h1 className="mb-8 font-inter text-4xl font-semibold text-[#3F2D28]">
           Desserts
@@ -184,6 +186,19 @@ function App() {
               </div>
             );
           })}
+        </div>
+      </div>
+      <div>
+        <div className="flex min-h-[305px] grow-0 flex-col items-center bg-white p-6">
+          <p className="self-start font-inter text-2xl font-semibold text-[#C66C50]">
+            Your Cart ({cartCount})
+          </p>
+          <div className="mb-7 mt-8 font-inter text-2xl font-semibold">
+            <EmptyCartIcon />
+          </div>
+          <p className="font-inter text-sm font-semibold text-[#988A87]">
+            Your added items will appear here
+          </p>
         </div>
       </div>
     </div>

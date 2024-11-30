@@ -1,6 +1,5 @@
 const ShoppingCartIcon = (props) => {
   const color = props.color ? props.color : "fill-black-900";
-  console.log(color);
   return (
     <svg
       version="1.1"
