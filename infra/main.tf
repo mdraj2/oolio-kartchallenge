@@ -4,7 +4,14 @@ resource "aws_s3_bucket" "cloudfront_s3_origin_bucket" {
   bucket = var.bucket_name
 }
 
-# Enable versioning
+resource "aws_s3_bucket_public_access_block" "private" {
+  bucket                  = aws_s3_bucket.cloudfront_s3_origin_bucket.id
+  block_public_acls       = true
+  block_public_policy     = true
+  ignore_public_acls      = true
+  restrict_public_buckets = true
+}
+
 resource "aws_s3_bucket_versioning" "enable" {
   bucket = aws_s3_bucket.cloudfront_s3_origin_bucket.id
   versioning_configuration {
@@ -52,7 +59,7 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
     origin_access_control_id = aws_cloudfront_origin_access_control.default.id
     origin_id                = local.s3_origin_id
   }
-  enabled             = true
+  enabled             = false
   is_ipv6_enabled     = true
   default_root_object = "index.html"
   default_cache_behavior {
