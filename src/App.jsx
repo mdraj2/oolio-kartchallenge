@@ -4,6 +4,7 @@ import ShoppingCartIcon from "./components/ShoppingCartIcon";
 import ReduceQuantityIcon from "./components/ReduceQuantityIcon";
 import IncreaseQuantityIcon from "./components/IncreaseQuantityIcon";
 import CarbonNeutralIcon from "./components/CarbonNeutralIcon";
+import CancelIcon from "./components/CancelIcon";
 
 function App() {
   const imagesLocations = [
@@ -288,28 +289,43 @@ function App() {
           ) : (
             <>
               <ul className="pb-10 pt-3">
-                {cart.map((item) => {
+                {cart.map((cartItem) => {
                   return (
-                    <li key={item.id} className="border-b py-3">
+                    <li key={cartItem.id} className="relative border-b py-3">
                       <p className="font-inter text-sm font-semibold">
-                        {item.name}
+                        {cartItem.name}
                       </p>
                       <p className="font-inter font-semibold">
                         <span className="pr-5 text-base text-[#C08778]">
-                          {item.quantity}X
+                          {cartItem.quantity}X
                         </span>
                         <span className="text-sm text-[#B2A8A6]">
-                          @&#36;{item.price.toFixed(2)}
+                          @&#36;{cartItem.price.toFixed(2)}
                           <span className="pl-5">
-                            &#36;{item.price * item.quantity}
+                            &#36;{cartItem.price * cartItem.quantity}
                           </span>
                         </span>
                       </p>
+                      <button
+                        onClick={() => {
+                          setCartState((prev) => {
+                            return prev.flatMap((item) => {
+                              if (item.id !== cartItem.id) {
+                                return [item];
+                              } else {
+                                return [];
+                              }
+                            });
+                          });
+                        }}
+                        className="absolute right-0 top-[50%] flex h-5 w-5 translate-y-[-50%] items-center justify-center rounded-full border border-[#AD8A85]"
+                      >
+                        <CancelIcon />
+                      </button>
                     </li>
                   );
                 })}
               </ul>
-
               <p className="flex items-center justify-between font-inter text-sm font-semibold text-[#928D8B]">
                 Order Total
                 <span className="text-2xl text-[#483A37]">
