@@ -57,6 +57,10 @@ terraform apply -var bucket_name="your-unique-bucket-name" -auto-approve
 
 **Note:** Replace `your-unique-bucket-name` with a globally unique S3 bucket name.
 
+### 7. Navigate the CDN URL
+
+Navigate to the CDN url provided in the `cdn_url` output after the Terraform deployment
+
 ## Troubleshooting
 
 - Verify your AWS credentials have sufficient permissions
