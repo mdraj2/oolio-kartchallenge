@@ -57,6 +57,8 @@ terraform apply -var bucket_name="your-unique-bucket-name" -auto-approve
 
 **Note:** Replace `your-unique-bucket-name` with a globally unique S3 bucket name.
 
+**Note:** The React application artifacts (HTML, CSS, and JavaScript files) are expected to be compiled into a dist directory by default. You can customize the deployment configuration by modifying the input variables in the Terraform command. Refer to the [Terraform Inputs](#Inputs) section below for detailed configuration options.
+
 ### 7. Navigate the CDN URL
 
 Navigate to the CDN url provided in the `cdn_url` output after the Terraform deployment
@@ -102,9 +104,12 @@ No modules.
 
 ## Inputs
 
-| Name                                                               | Description         | Type     | Default | Required |
-| ------------------------------------------------------------------ | ------------------- | -------- | ------- | :------: |
-| <a name="input_bucket_name"></a> [bucket_name](#input_bucket_name) | Name of the bucket. | `string` | n/a     |   yes    |
+| Name                                                                                                         | Description                                         | Type     | Default            | Required |
+| ------------------------------------------------------------------------------------------------------------ | --------------------------------------------------- | -------- | ------------------ | :------: |
+| <a name="input_bucket_name"></a> [bucket_name](#input_bucket_name)                                           | Name of the S3 bucket                               | `string` | n/a                |   yes    |
+| <a name="input_css_file_folder_location"></a> [css_file_folder_location](#input_css_file_folder_location)    | Location of the css files to upload into S3 bucket  | `string` | `"../dist/assets"` |    no    |
+| <a name="input_html_file_folder_location"></a> [html_file_folder_location](#input_html_file_folder_location) | Location of the html files to upload into S3 bucket | `string` | `"../dist"`        |    no    |
+| <a name="input_js_file_folder_location"></a> [js_file_folder_location](#input_js_file_folder_location)       | Location of the js files to upload into S3 bucket   | `string` | `"../dist/assets"` |    no    |
 
 ## Outputs
 

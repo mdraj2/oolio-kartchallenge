@@ -85,31 +85,31 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
 # Run only after the distribution is created. Otherwise, aws_s3_object resource will fail because it run as soon as the s3 bucket is being provisioned.
 # The bucket must be provisioned prior to this resource running.  
 resource "aws_s3_object" "html_files" {
-  for_each     = fileset("../dist/", "*.html")
+  for_each     = fileset("${var.html_file_folder_location}/", "*.html")
   bucket       = aws_s3_bucket.cloudfront_s3_origin_bucket.id
   key          = each.value
-  source       = "../dist/${each.value}"
+  source       = "${var.html_file_folder_location}/${each.value}"
   content_type = "text/html"
-  etag         = filemd5("../dist/${each.value}")
+  etag         = filemd5("${var.html_file_folder_location}/${each.value}")
   depends_on   = [aws_cloudfront_distribution.s3_distribution]
 }
 
 resource "aws_s3_object" "css_files" {
-  for_each     = fileset("../dist/assets/", "*.css")
+  for_each     = fileset("${var.css_file_folder_location}/", "*.css")
   bucket       = aws_s3_bucket.cloudfront_s3_origin_bucket.id
   key          = "assets/${each.value}"
-  source       = "../dist/assets/${each.value}"
+  source       = "${var.css_file_folder_location}/${each.value}"
   content_type = "text/css"
-  etag         = filemd5("../dist/assets/${each.value}")
+  etag         = filemd5("${var.css_file_folder_location}/${each.value}")
   depends_on   = [aws_cloudfront_distribution.s3_distribution]
 }
 
 resource "aws_s3_object" "js_files" {
-  for_each     = fileset("../dist/assets/", "*.js")
+  for_each     = fileset("${var.css_file_folder_location}/", "*.js")
   bucket       = aws_s3_bucket.cloudfront_s3_origin_bucket.id
   key          = "assets/${each.value}"
-  source       = "../dist/assets/${each.value}"
+  source       = "${var.css_file_folder_location}/${each.value}"
   content_type = "text/javascript"
-  etag         = filemd5("../dist/assets/${each.value}")
+  etag         = filemd5("${var.css_file_folder_location}/${each.value}")
   depends_on   = [aws_cloudfront_distribution.s3_distribution]
 }
