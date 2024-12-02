@@ -14,8 +14,8 @@ function Cart({ cart, openModal, removeItemFromCart, totalCartValue }) {
 
   return (
     <div>
-      <div className="flex min-h-[300px] grow-0 flex-col bg-white p-6">
-        <p className="text-terra-cotta text-2xl font-semibold">
+      <div className="flex min-h-[300px] grow-0 flex-col bg-white p-6 font-semibold">
+        <p className="text-terra-cotta text-2xl">
           Your Cart ({totalCartQuantity})
         </p>
 
@@ -24,10 +24,8 @@ function Cart({ cart, openModal, removeItemFromCart, totalCartValue }) {
             {cart.map((cartItem) => {
               return (
                 <li key={cartItem.id} className="relative border-b py-3">
-                  <p className="text-warm-taup mb-3 text-sm font-semibold">
-                    {cartItem.name}
-                  </p>
-                  <p className="font-semibold">
+                  <p className="text-warm-taup mb-3 text-sm">{cartItem.name}</p>
+                  <p>
                     <span className="text-terra-cotta pr-5 text-base">
                       {cartItem.quantity}x
                     </span>
@@ -60,7 +58,7 @@ function CartList({ children, totalCartValue, openModal }) {
   return (
     <>
       <ul className="pb-10 pt-3">{children}</ul>
-      <p className="text-warm-taup flex items-center justify-between text-sm font-semibold">
+      <p className="text-warm-taup flex items-center justify-between text-sm">
         Order Total
         <span className="text-dark-wood text-2xl">${totalCartValue}</span>
       </p>
@@ -85,7 +83,7 @@ function EmptyCart() {
       <div className="mb-7 mt-8 self-center">
         <EmptyCartIcon />
       </div>
-      <p className="text-warm-taup self-center text-sm font-semibold">
+      <p className="text-warm-taup self-center text-sm">
         Your added items will appear here
       </p>
     </>

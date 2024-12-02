@@ -10,10 +10,8 @@ function MenuDisplay({
   reduceItemQuantityCart,
 }) {
   return (
-    <div className="col-start-2 col-end-3">
-      <h1 className="text-dark-wood mb-8 font-inter text-4xl font-semibold">
-        Desserts
-      </h1>
+    <div className="col-start-2 col-end-3 font-semibold">
+      <h1 className="text-dark-wood mb-8 text-4xl">Desserts</h1>
       <div className="grid grid-cols-3 gap-x-6 gap-y-9">
         {menu.map((menuItem) => {
           const menuItemInCart = cart.some((item) => item.id === menuItem.id);
@@ -37,9 +35,7 @@ function MenuDisplay({
                     <span className="mr-2 inline-block h-6 w-6 -translate-y-1">
                       <ShoppingCartIcon />
                     </span>
-                    <p className="text-warm-taup font-inter font-semibold">
-                      Add to Cart
-                    </p>
+                    <p className="text-warm-taup">Add to Cart</p>
                   </button>
                 ) : (
                   <div className="btn-base btn-menu border-brick-red bg-burnt-sienna justify-between px-3">
@@ -62,13 +58,9 @@ function MenuDisplay({
               </div>
 
               <div className="flex flex-col gap-2">
-                <p className="text-soft-stone font-inter text-xs font-semibold">
-                  {menuItem.category}
-                </p>
-                <p className="text-warm-taup font-inter text-sm font-semibold">
-                  {menuItem.name}
-                </p>
-                <p className="text-terra-cotta font-inter text-sm font-semibold">
+                <p className="text-soft-stone text-xs">{menuItem.category}</p>
+                <p className="text-warm-taup text-sm">{menuItem.name}</p>
+                <p className="text-terra-cotta text-sm">
                   ${menuItem.price.toFixed(2)}
                 </p>
               </div>
