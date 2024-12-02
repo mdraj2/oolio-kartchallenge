@@ -24,44 +24,40 @@ function MenuDisplay({
           return (
             <div key={menuItem.id}>
               <div className="relative mb-9">
+                <img
+                  src={menuItem.image.desktop}
+                  alt={menuItem.name}
+                  className={`w-ful aspect-[251/240] rounded ${menuItemInCart && "border-brick-red border-2"}`}
+                />
                 {!menuItemInCart ? (
-                  <>
-                    <img src={menuItem.image.desktop} className={"rounded"} />
-                    <button
-                      onClick={() => addNewItemToCart(menuItem)}
-                      className="btn-base btn-menu border-terra-cotta justify-center border bg-white"
-                    >
-                      <span className="mr-2 inline-block h-6 w-6 -translate-y-1">
-                        <ShoppingCartIcon />
-                      </span>
-                      <p className="text-warm-taup font-inter font-semibold">
-                        Add to Cart
-                      </p>
-                    </button>
-                  </>
+                  <button
+                    onClick={() => addNewItemToCart(menuItem)}
+                    className="btn-base btn-menu border-terra-cotta justify-center border bg-white"
+                  >
+                    <span className="mr-2 inline-block h-6 w-6 -translate-y-1">
+                      <ShoppingCartIcon />
+                    </span>
+                    <p className="text-warm-taup font-inter font-semibold">
+                      Add to Cart
+                    </p>
+                  </button>
                 ) : (
-                  <>
-                    <img
-                      src={menuItem.image.desktop}
-                      className={"border-brick-red rounded border-2"}
-                    />
-                    <div className="btn-base btn-menu border-brick-red bg-burnt-sienna justify-between px-3">
-                      <button
-                        className="inline-block h-6 w-6"
-                        onClick={() => reduceItemQuantityCart(menuItem)}
-                      >
-                        <ReduceQuantityIcon />
-                      </button>
+                  <div className="btn-base btn-menu border-brick-red bg-burnt-sienna justify-between px-3">
+                    <button
+                      className="inline-block h-6 w-6"
+                      onClick={() => reduceItemQuantityCart(menuItem)}
+                    >
+                      <ReduceQuantityIcon />
+                    </button>
 
-                      <span className="text-soft-clay">{itemQuantity}</span>
-                      <button
-                        className="inline-block h-6 w-6"
-                        onClick={() => increaseItemQuantityInCart(menuItem)}
-                      >
-                        <IncreaseQuantityIcon />
-                      </button>
-                    </div>
-                  </>
+                    <span className="text-soft-clay">{itemQuantity}</span>
+                    <button
+                      className="inline-block h-6 w-6"
+                      onClick={() => increaseItemQuantityInCart(menuItem)}
+                    >
+                      <IncreaseQuantityIcon />
+                    </button>
+                  </div>
                 )}
               </div>
 
