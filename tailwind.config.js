@@ -4,7 +4,14 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        inter: ["Inter", "sans-serif"],
+        sans: ["Red Hat Text", "sans-serif"],
+      },
+      colors: {
+        "dark-brown": "#483A37",
+        "normal-brown": "#716764",
+        "normal-grey": "#928D8B",
+        "light-brown": "#C08778",
+        "light-white": "#FCF8F5",
       },
     },
   },

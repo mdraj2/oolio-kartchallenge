@@ -1,11 +1,11 @@
-import { useState, useRef, useEffect } from "react";
+import { useCallback, useState } from "react";
 import EmptyCartIcon from "./components/EmptyCartIcon";
 import ShoppingCartIcon from "./components/ShoppingCartIcon";
 import ReduceQuantityIcon from "./components/ReduceQuantityIcon";
 import IncreaseQuantityIcon from "./components/IncreaseQuantityIcon";
 import CarbonNeutralIcon from "./components/CarbonNeutralIcon";
 import CancelIcon from "./components/CancelIcon";
-import SuccessIcon from "./components/SuccessIcon";
+import Modal from "./components/Modal";
 
 function App() {
   const imagesLocations = [
@@ -162,16 +162,16 @@ function App() {
 
   //I wonder if the key will need a count and id congugated together. I would not want to keep fetching the images on every rerender. Maybe its not a problem
   const [cart, setCartState] = useState([]);
-  const [modalOpen, setModalOpen] = useState(false);
-  const ref = useRef();
 
-  useEffect(() => {
-    if (modalOpen) {
-      ref.current?.showModal();
-    } else {
-      ref.current?.close();
-    }
-  }, [modalOpen]);
+  const [modalOpen, setModalOpenState] = useState(false);
+  const openModal = useCallback(
+    () => setModalOpenState(true),
+    [setModalOpenState],
+  );
+  const closeModal = useCallback(
+    () => setModalOpenState(false),
+    [setModalOpenState],
+  );
 
   return (
     <div className="mx-auto grid grid-cols-[1fr_minmax(270px,850px)_400px_1fr] gap-x-8 bg-[#FCF8F5] py-20">
@@ -359,7 +359,7 @@ function App() {
                 delivery
               </p>
               <button
-                onClick={() => setModalOpen(true)}
+                onClick={openModal}
                 className="rounded-3xl border border-[#B94825] bg-[#C73B0E] py-3 text-base text-[#E7AB91]"
               >
                 Confirm Order
@@ -368,72 +368,12 @@ function App() {
           )}
         </div>
       </div>
-
-      <dialog
-        ref={ref}
-        onCancel={() => setModalOpen(false)}
-        className="w-[700px] rounded-md p-10 backdrop:bg-black/50"
-      >
-        <div className="mb-5 h-8 w-9">
-          <SuccessIcon />
-        </div>
-        <h2 className="mb-2 font-inter text-3xl font-semibold text-[#2F1D19]">
-          Order Confirmed
-        </h2>
-        <p className="mb-5 font-inter text-xs font-semibold text-[#A59B99]">
-          We hope you enjoyed your food!
-        </p>
-        <div className="mb-6 rounded-md bg-[#FCF8F5] p-5 pb-6">
-          {/* this needs to be a loop of the cart and their images */}
-          <ul className="mb-8">
-            {cart.map((cartItem) => {
-              return (
-                <li
-                  key={cartItem.id}
-                  className="relative flex gap-3 border-b py-3"
-                >
-                  <img src={cartItem.thumbnail} className="h-14" />
-                  <div>
-                    <p className="mb-3 font-inter text-sm font-semibold text-[#716A67]">
-                      {cartItem.name}
-                    </p>
-                    <p className="font-inter font-semibold">
-                      <span className="pr-5 text-sm text-[#C08778]">
-                        {cartItem.quantity}X
-                      </span>
-                      <span className="text-sm text-[#B2A8A6]">
-                        @&#36;{cartItem.price.toFixed(2)}
-                      </span>
-                    </p>
-                  </div>
-                  <p className="ml-auto self-center font-inter text-base font-semibold text-[#6A605C]">
-                    &#36;{(cartItem.price * cartItem.quantity).toFixed(2)}
-                  </p>
-                </li>
-              );
-            })}
-          </ul>
-          <p className="flex items-center justify-between font-inter text-base font-semibold text-[#928D8B]">
-            Order Total
-            <span className="text-4xl text-[#483A37]">
-              &#36;
-              {cart.reduce((currentValue, item) => {
-                return item.price * item.quantity + currentValue;
-              }, 0)}
-            </span>
-          </p>
-        </div>
-
-        <button
-          onClick={() => {
-            setModalOpen(false);
-            setCartState([]);
-          }}
-          className="w-full rounded-3xl border border-[#B94825] bg-[#C73B0E] py-3 text-base text-[#E7AB91]"
-        >
-          Start New Order
-        </button>
-      </dialog>
+      <Modal
+        cart={cart}
+        openModal={modalOpen}
+        resetCart={() => setCartState([])}
+        closeModal={closeModal}
+      />
     </div>
   );
 }
