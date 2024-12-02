@@ -1,6 +1,6 @@
-import CarbonNeutralIcon from "./CarbonNeutralIcon";
-import CancelIcon from "./CancelIcon";
-import EmptyCartIcon from "./EmptyCartIcon";
+import CarbonNeutralIcon from "./Icons/CarbonNeutralIcon";
+import CancelIcon from "./Icons/CancelIcon";
+import EmptyCartIcon from "./Icons/EmptyCartIcon";
 import { useMemo } from "react";
 
 function Cart({ cart, openModal, removeItemFromCart, totalCartValue }) {

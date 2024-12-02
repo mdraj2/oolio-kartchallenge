@@ -1,4 +1,4 @@
-import SuccessIcon from "./SuccessIcon";
+import SuccessIcon from "./Icons/SuccessIcon";
 import { useRef, useEffect } from "react";
 
 function ConfirmOrder({

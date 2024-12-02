@@ -1,6 +1,6 @@
-import ShoppingCartIcon from "./ShoppingCartIcon";
-import ReduceQuantityIcon from "./ReduceQuantityIcon";
-import IncreaseQuantityIcon from "./IncreaseQuantityIcon";
+import ShoppingCartIcon from "./Icons/ShoppingCartIcon";
+import ReduceQuantityIcon from "./Icons/ReduceQuantityIcon";
+import IncreaseQuantityIcon from "./Icons/IncreaseQuantityIcon";
 
 function MenuDisplay({
   menu,
