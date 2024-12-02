@@ -18,6 +18,13 @@ function ConfirmOrder({
     <dialog
       ref={ref}
       className="w-[650px] rounded-md p-10 font-semibold backdrop:bg-black/50"
+      onKeyDown={(e) => {
+        if (e.key == "Escape") {
+          ref.current?.close();
+          resetCart();
+          closeModal();
+        }
+      }}
     >
       <div className="mb-5 h-8 w-9">
         <SuccessIcon />

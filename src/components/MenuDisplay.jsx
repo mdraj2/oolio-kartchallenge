@@ -25,7 +25,7 @@ function MenuDisplay({
                 <img
                   src={menuItem.image.desktop}
                   alt={menuItem.name}
-                  className={`w-ful aspect-[251/240] rounded ${menuItemInCart && "border-brick-red border-2"}`}
+                  className={`aspect-[251/240] w-full rounded ${menuItemInCart && "border-brick-red border-2"}`}
                 />
                 {!menuItemInCart ? (
                   <button
