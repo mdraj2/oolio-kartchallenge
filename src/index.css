@@ -3,11 +3,15 @@
 @tailwind utilities;
 
 @layer components {
-  .btn {
-    @apply w-full rounded-3xl border py-3;
+  .btn-base {
+    @apply w-full rounded-3xl border;
   }
 
   .btn-red {
-    @apply text-light-peach border-[#B94825] bg-[#C73B0E];
+    @apply text-light-peach border-light-red bg-light-red2;
+  }
+
+  .btn-menu {
+    @apply absolute bottom-0 left-[50%] flex h-12 w-40 -translate-y-[-50%] translate-x-[-50%] items-center whitespace-nowrap;
   }
 }

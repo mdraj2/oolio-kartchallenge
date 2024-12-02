@@ -1,13 +1,11 @@
 import { useCallback, useMemo, useState } from "react";
-import ShoppingCartIcon from "./components/ShoppingCartIcon";
-import ReduceQuantityIcon from "./components/ReduceQuantityIcon";
-import IncreaseQuantityIcon from "./components/IncreaseQuantityIcon";
 
 import ConfirmOrder from "./components/ConfirmOrder";
 import Cart from "./components/Cart";
+import MenuDisplay from "./components/MenuDisplay";
 
 function App() {
-  const imagesLocations = [
+  const menu = [
     {
       id: "1",
       image: {
@@ -154,13 +152,9 @@ function App() {
     },
   ];
 
-  // Add to cart behaviour. If not in cart the ui should show the first ui card. If the number increases then it should become a different button.
-  // you cannot go to 0. When zero the cart should it should show the original button
-  // you also need to fix the coloring aswell i.e not 0 means a border needs to be applied
-  // I will need to add a hover aswell when item count is 0
-
-  //I wonder if the key will need a count and id congugated together. I would not want to keep fetching the images on every rerender. Maybe its not a problem
+  // Cart state and update methods
   const [cart, setCartState] = useState([]);
+
   const totalCartValue = useMemo(
     () =>
       cart
@@ -170,6 +164,59 @@ function App() {
         .toFixed(2),
     [cart],
   );
+
+  const addNewItemToCart = useCallback(
+    (menuItem) => {
+      setCartState((prev) => [
+        ...prev,
+        {
+          id: menuItem.id,
+          price: menuItem.price,
+          name: menuItem.name,
+          category: menuItem.category,
+          thumbnail: menuItem.image.thumbnail,
+          quantity: 1,
+        },
+      ]);
+    },
+    [setCartState],
+  );
+
+  const increaseItemQuantityInCart = useCallback(
+    (menuItem) => {
+      setCartState((prev) => {
+        return prev.flatMap((cartItem) => {
+          if (cartItem.id !== menuItem.id) {
+            return [cartItem];
+          }
+          const quantity = cartItem.quantity + 1;
+          return [{ ...cartItem, quantity }];
+        });
+      });
+    },
+    [setCartState],
+  );
+
+  const reduceItemQuantityCart = useCallback(
+    (menuItem) => {
+      setCartState((prev) => {
+        return prev.flatMap((cartItem) => {
+          if (cartItem.id !== menuItem.id) {
+            return [cartItem];
+          }
+          const quantity = cartItem.quantity - 1;
+
+          if (quantity === 0) {
+            return [];
+          } else {
+            return [{ ...cartItem, quantity }];
+          }
+        });
+      });
+    },
+    [setCartState],
+  );
+
   const removeItemFromCart = useCallback(
     (id) => {
       setCartState((prev) =>
@@ -178,8 +225,10 @@ function App() {
     },
     [setCartState],
   );
+
   const resetCart = useCallback(() => setCartState([]), [setCartState]);
 
+  // Modal state and update methods
   const [modalOpen, setModalOpenState] = useState(false);
   const openModal = useCallback(
     () => setModalOpenState(true),
@@ -191,111 +240,14 @@ function App() {
   );
 
   return (
-    <div className="mx-auto grid grid-cols-[1fr_minmax(270px,850px)_400px_1fr] gap-x-8 bg-[#FCF8F5] py-20">
-      <div className="col-start-2 col-end-3">
-        <h1 className="mb-8 font-inter text-4xl font-semibold text-[#3F2D28]">
-          Desserts
-        </h1>
-        <div className="grid grid-cols-3 gap-x-6 gap-y-9">
-          {/* Get images now */}
-          {imagesLocations.map((image) => {
-            return (
-              <div key={image.id}>
-                <div className="relative mb-9">
-                  <img
-                    src={image.image.desktop}
-                    className={`rounded ${cart.some((item) => item.id === image.id) && "border-2 border-[#B94825]"}`}
-                  />
-                  {!cart.some((item) => item.id === image.id) ? (
-                    <button
-                      onClick={() => {
-                        // you want to push the items. Because it of closure it should be fine like this
-                        setCartState((prev) => [
-                          ...prev,
-                          {
-                            id: image.id,
-                            price: image.price,
-                            name: image.name,
-                            category: image.category,
-                            thumbnail: image.image.thumbnail,
-                            quantity: 1,
-                          },
-                        ]);
-                      }}
-                      className="absolute bottom-0 left-[50%] flex h-12 w-40 -translate-y-[-50%] translate-x-[-50%] items-center justify-center whitespace-nowrap rounded-3xl border-[1px] border-[#B8A1A2] bg-white"
-                    >
-                      <span className="mr-2 inline-block h-6 w-6 -translate-y-1">
-                        <ShoppingCartIcon color="fill-red-500" />
-                      </span>
-                      <p className="font-inter font-semibold text-[#766F6D]">
-                        Add to Cart
-                      </p>
-                    </button>
-                  ) : (
-                    <div className="absolute bottom-0 left-[50%] flex h-12 w-40 -translate-y-[-50%] translate-x-[-50%] items-center justify-between whitespace-nowrap rounded-3xl border-[1px] border-[#B94825] bg-[#C73B0E] px-3">
-                      <button
-                        className="inline-block h-6 w-6"
-                        onClick={() => {
-                          // reduce quantity
-                          setCartState((prev) => {
-                            return prev.flatMap((item) => {
-                              if (item.id !== image.id) {
-                                return [item];
-                              }
-                              const quantity = item.quantity - 1;
-
-                              if (quantity === 0) {
-                                return [];
-                              } else {
-                                return [{ ...item, quantity }];
-                              }
-                            });
-                          });
-                        }}
-                      >
-                        <ReduceQuantityIcon />
-                      </button>
-
-                      <span className="text-[#EAB096]">
-                        {cart.find((item) => item.id == image.id).quantity}
-                      </span>
-                      <button
-                        className="inline-block h-6 w-6"
-                        onClick={() => {
-                          // increase quantity
-                          setCartState((prev) => {
-                            return prev.flatMap((item) => {
-                              if (item.id !== image.id) {
-                                return [item];
-                              }
-                              const quantity = item.quantity + 1;
-                              return [{ ...item, quantity }];
-                            });
-                          });
-                        }}
-                      >
-                        <IncreaseQuantityIcon />
-                      </button>
-                    </div>
-                  )}
-                </div>
-
-                <div className="flex flex-col gap-2">
-                  <p className="font-inter text-xs font-semibold text-[#ACA09C]">
-                    {image.category}
-                  </p>
-                  <p className="font-inter text-sm font-semibold text-[#6E6461]">
-                    {image.name}
-                  </p>
-                  <p className="font-inter text-sm font-semibold text-[#BC7863]">
-                    &#36;{image.price.toFixed(2)}
-                  </p>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      </div>
+    <div className="bg-light-white mx-auto grid grid-cols-[1fr_minmax(270px,850px)_400px_1fr] gap-x-8 py-20">
+      <MenuDisplay
+        cart={cart}
+        menu={menu}
+        addNewItemToCart={addNewItemToCart}
+        increaseItemQuantityInCart={increaseItemQuantityInCart}
+        reduceItemQuantityCart={reduceItemQuantityCart}
+      />
       <Cart
         openModal={openModal}
         cart={cart}

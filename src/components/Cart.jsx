@@ -74,7 +74,7 @@ function CartList({ children, totalCartValue, openModal }) {
         </span>
         delivery
       </p>
-      <button onClick={openModal} className="btn btn-red text-base">
+      <button onClick={openModal} className="btn-base btn-red py-3 text-base">
         Confirm Order
       </button>
     </>

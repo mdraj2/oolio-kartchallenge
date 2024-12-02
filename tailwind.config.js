@@ -13,6 +13,8 @@ export default {
         "light-brown": "#C08778",
         "light-white": "#FCF8F5",
         "light-peach": "#E7AB91",
+        "light-red": "#B94825",
+        "light-red2": "#C73B0E",
       },
     },
   },

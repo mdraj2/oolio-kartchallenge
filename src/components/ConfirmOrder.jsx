@@ -66,7 +66,7 @@ function ConfirmOrder({
           resetCart();
           closeModal();
         }}
-        className="btn btn-red text-base"
+        className="btn-base btn-red py-3 text-base"
       >
         Start New Order
       </button>
