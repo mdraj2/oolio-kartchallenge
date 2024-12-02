@@ -94,7 +94,7 @@ function App() {
   );
 
   return (
-    <div className="bg-light-white mx-auto grid grid-cols-[1fr_minmax(270px,850px)_400px_1fr] gap-x-8 py-20">
+    <div className="bg-pale-silk mx-auto grid grid-cols-[1fr_minmax(270px,850px)_400px_1fr] gap-x-8 py-20">
       <MenuDisplay
         cart={cart}
         menu={menu}

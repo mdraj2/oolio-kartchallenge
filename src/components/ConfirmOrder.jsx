@@ -23,10 +23,10 @@ function ConfirmOrder({
         <SuccessIcon />
       </div>
       <h2 className="mb-2 text-3xl text-black">Order Confirmed</h2>
-      <p className="text-normal-grey mb-5 text-xs">
+      <p className="text-soft-stone mb-5 text-xs">
         We hope you enjoyed your food!
       </p>
-      <div className="bg-light-white mb-6 rounded-md p-5 pb-6">
+      <div className="bg-pale-silk mb-6 rounded-md p-5 pb-6">
         <ul className="mb-8">
           {cart.map((cartItem) => {
             return (
@@ -36,28 +36,26 @@ function ConfirmOrder({
               >
                 <img src={cartItem.thumbnail} className="h-14" />
                 <div>
-                  <p className="text-normal-brown mb-3 text-sm">
-                    {cartItem.name}
-                  </p>
+                  <p className="text-warm-taup mb-3 text-sm">{cartItem.name}</p>
                   <p>
-                    <span className="text-light-brown pr-5 text-sm">
+                    <span className="text-terra-cotta pr-5 text-sm">
                       {cartItem.quantity}X
                     </span>
-                    <span className="text-normal-grey text-sm">
+                    <span className="text-soft-stone text-sm">
                       @${cartItem.price.toFixed(2)}
                     </span>
                   </p>
                 </div>
-                <p className="text-normal-brown ml-auto self-center text-base">
+                <p className="text-warm-taup ml-auto self-center text-base">
                   ${(cartItem.price * cartItem.quantity).toFixed(2)}
                 </p>
               </li>
             );
           })}
         </ul>
-        <p className="text-normal-grey flex items-center justify-between text-base">
+        <p className="text-soft-stone flex items-center justify-between text-base">
           Order Total
-          <span className="text-dark-brown text-4xl">${totalCartValue}</span>
+          <span className="text-dark-wood text-4xl">${totalCartValue}</span>
         </p>
       </div>
       <button

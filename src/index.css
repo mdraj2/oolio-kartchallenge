@@ -8,7 +8,7 @@
   }
 
   .btn-red {
-    @apply text-light-peach border-light-red bg-light-red2;
+    @apply text-soft-clay border-brick-red bg-burnt-sienna;
   }
 
   .btn-menu {
