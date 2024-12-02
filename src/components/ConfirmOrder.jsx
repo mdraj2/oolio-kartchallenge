@@ -3,7 +3,7 @@ import { useRef, useEffect } from "react";
 
 function ConfirmOrder({
   cart,
-  modalOpen,
+  orderConfirmed,
   resetCart,
   closeModal,
   totalCartValue,
@@ -11,8 +11,8 @@ function ConfirmOrder({
   const ref = useRef();
 
   useEffect(() => {
-    modalOpen && ref.current?.showModal();
-  }, [modalOpen]);
+    orderConfirmed && ref.current?.showModal();
+  }, [orderConfirmed]);
 
   return (
     <dialog
