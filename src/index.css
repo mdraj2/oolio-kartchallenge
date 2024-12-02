@@ -8,6 +8,6 @@
   }
 
   .btn-red {
-    @apply border-[#B94825] bg-[#C73B0E] text-[#E7AB91];
+    @apply text-light-peach border-[#B94825] bg-[#C73B0E];
   }
 }

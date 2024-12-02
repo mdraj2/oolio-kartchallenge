@@ -1,12 +1,18 @@
 import SuccessIcon from "./SuccessIcon";
 import { useRef, useEffect } from "react";
 
-function Modal({ cart, openModal, resetCart, closeModal }) {
+function ConfirmOrder({
+  cart,
+  modalOpen,
+  resetCart,
+  closeModal,
+  totalCartValue,
+}) {
   const ref = useRef();
 
   useEffect(() => {
-    openModal && ref.current?.showModal();
-  }, [openModal]);
+    modalOpen && ref.current?.showModal();
+  }, [modalOpen]);
 
   return (
     <dialog
@@ -33,7 +39,7 @@ function Modal({ cart, openModal, resetCart, closeModal }) {
                   <p className="text-normal-brown mb-3 text-sm">
                     {cartItem.name}
                   </p>
-                  <p className="">
+                  <p>
                     <span className="text-light-brown pr-5 text-sm">
                       {cartItem.quantity}X
                     </span>
@@ -51,14 +57,7 @@ function Modal({ cart, openModal, resetCart, closeModal }) {
         </ul>
         <p className="text-normal-grey flex items-center justify-between text-base">
           Order Total
-          <span className="text-dark-brown text-4xl">
-            $
-            {cart
-              .reduce((currentValue, item) => {
-                return item.price * item.quantity + currentValue;
-              }, 0)
-              .toFixed(2)}
-          </span>
+          <span className="text-dark-brown text-4xl">${totalCartValue}</span>
         </p>
       </div>
       <button
@@ -67,7 +66,7 @@ function Modal({ cart, openModal, resetCart, closeModal }) {
           resetCart();
           closeModal();
         }}
-        className="btn btn-red py-3 text-base"
+        className="btn btn-red text-base"
       >
         Start New Order
       </button>
@@ -75,4 +74,4 @@ function Modal({ cart, openModal, resetCart, closeModal }) {
   );
 }
 
-export default Modal;
+export default ConfirmOrder;

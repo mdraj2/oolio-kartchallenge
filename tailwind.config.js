@@ -12,6 +12,7 @@ export default {
         "normal-grey": "#928D8B",
         "light-brown": "#C08778",
         "light-white": "#FCF8F5",
+        "light-peach": "#E7AB91",
       },
     },
   },
