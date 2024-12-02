@@ -32,7 +32,7 @@ Update the `dev.config` file with your S3 and DynamoDB backend properties:
 
 ### 4. Initialize Terraform
 
-Run the following command to initialize Terraform with your backend configuration:
+Run the following command to initialize Terraform with your backend configuration in the `infra` folder:
 
 ```bash
 terraform init -backend-config="./dev.config"
@@ -40,7 +40,7 @@ terraform init -backend-config="./dev.config"
 
 ### 5. Application Preparation
 
-Navigate to the source directory and build the application:
+If you have not created a production build of the application, navigate to the source directory and build the application:
 
 ```bash
 npm install

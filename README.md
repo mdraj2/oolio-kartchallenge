@@ -39,7 +39,11 @@ Create a production build first using:
 npm run build
 ```
 
-And then refer to [AWS Deployment Guide](https://github.com/mdraj2/oolio-kartchallenge/blob/main/infra/README.md)
+Navigate to the infra folder and then refer to [AWS Deployment Guide](https://github.com/mdraj2/oolio-kartchallenge/blob/main/infra/README.md)
+
+```bash
+cd infra
+```
 
 ## Project Structure
 
