@@ -19,55 +19,40 @@ function Cart({ cart, openModal, removeItemFromCart, totalCartValue }) {
           Your Cart ({totalCartQuantity})
         </p>
 
-        {cart.length == 0 ? (
-          <EmptyCart />
+        {cart.length ? (
+          <CartList openModal={openModal} totalCartValue={totalCartValue}>
+            {cart.map((cartItem) => {
+              return (
+                <li key={cartItem.id} className="relative border-b py-3">
+                  <p className="text-normal-brown mb-3 text-sm font-semibold">
+                    {cartItem.name}
+                  </p>
+                  <p className="font-semibold">
+                    <span className="text-light-brown pr-5 text-base">
+                      {cartItem.quantity}x
+                    </span>
+                    <span className="text-normal-grey text-sm">
+                      @${cartItem.price.toFixed(2)}
+                      <span className="pl-5">
+                        ${(cartItem.price * cartItem.quantity).toFixed(2)}
+                      </span>
+                    </span>
+                  </p>
+                  <button
+                    onClick={() => removeItemFromCart(cartItem.id)}
+                    className="border-light-brown absolute right-0 top-[50%] flex h-5 w-5 translate-y-[-50%] items-center justify-center rounded-full border"
+                  >
+                    <CancelIcon />
+                  </button>
+                </li>
+              );
+            })}
+          </CartList>
         ) : (
-          <>
-            <CartList openModal={openModal} totalCartValue={totalCartValue}>
-              {cart.map((cartItem) => {
-                return (
-                  <li key={cartItem.id} className="relative border-b py-3">
-                    <p className="text-normal-brown mb-3 text-sm font-semibold">
-                      {cartItem.name}
-                    </p>
-                    <p className="font-semibold">
-                      <span className="text-light-brown pr-5 text-base">
-                        {cartItem.quantity}x
-                      </span>
-                      <span className="text-normal-grey text-sm">
-                        @${cartItem.price.toFixed(2)}
-                        <span className="pl-5">
-                          ${(cartItem.price * cartItem.quantity).toFixed(2)}
-                        </span>
-                      </span>
-                    </p>
-                    <button
-                      onClick={() => removeItemFromCart(cartItem.id)}
-                      className="border-light-brown absolute right-0 top-[50%] flex h-5 w-5 translate-y-[-50%] items-center justify-center rounded-full border"
-                    >
-                      <CancelIcon />
-                    </button>
-                  </li>
-                );
-              })}
-            </CartList>
-          </>
+          <EmptyCart />
         )}
       </div>
     </div>
-  );
-}
-
-function EmptyCart() {
-  return (
-    <>
-      <div className="mb-7 mt-8 self-center">
-        <EmptyCartIcon />
-      </div>
-      <p className="text-normal-brown self-center text-sm font-semibold">
-        Your added items will appear here
-      </p>
-    </>
   );
 }
 
@@ -92,6 +77,19 @@ function CartList({ children, totalCartValue, openModal }) {
       <button onClick={openModal} className="btn btn-red text-base">
         Confirm Order
       </button>
+    </>
+  );
+}
+
+function EmptyCart() {
+  return (
+    <>
+      <div className="mb-7 mt-8 self-center">
+        <EmptyCartIcon />
+      </div>
+      <p className="text-normal-brown self-center text-sm font-semibold">
+        Your added items will appear here
+      </p>
     </>
   );
 }
